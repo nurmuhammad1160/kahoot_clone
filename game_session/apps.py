@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class QuizConfig(AppConfig):
+class GameSessionConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'quiz'
+    name = 'game_session'
