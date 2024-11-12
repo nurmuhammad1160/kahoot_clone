@@ -1,12 +1,9 @@
-from tabnanny import verbose
-
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 
-class Organization(models.Model):
-	name = models.CharField(max_length=100)
+
 
 
 # # Create your models here.
@@ -36,8 +33,11 @@ class MyUserManager(BaseUserManager):
 			raise ValueError('Superuser must have is_superuser=True.')
 		return self.create_user(username, password, **extra_fields)
 
+class Organization(models.Model):
+	name = models.CharField(max_length=100)
 
-class User(AbstractBaseUser, ):
+
+class User(AbstractBaseUser, PermissionsMixin):
 	USER_TYPE = (
 		('student', 'Talaba'),
 		('teacher', "O'qituvchi"),
@@ -56,6 +56,8 @@ class User(AbstractBaseUser, ):
 	                             default='student')
 	folders = models.FilePathField(verbose_name="Folder", null=True, blank=True)
 	image = models.ImageField(verbose_name="Avatar", null=True, blank=True)
+	organization = models.ForeignKey(Organization, verbose_name="Organization", null=True, blank=True, on_delete=models.SET_NULL)
+
 	USERNAME_FIELD = 'username'
 	objects = MyUserManager()
 

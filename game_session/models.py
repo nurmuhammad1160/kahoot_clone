@@ -15,7 +15,7 @@ class GameSession(models.Model):
 	class Meta:
 		verbose_name = 'Game Session'
 		verbose_name_plural = 'Game Sessions'
-		ordering = ['-created_at']
+		ordering = ['-started_at']
 
 class GameParticipant(models.Model):
 	game_session = models.ForeignKey(GameSession, on_delete=models.CASCADE)
@@ -26,7 +26,7 @@ class GameParticipant(models.Model):
 	class Meta:
 		verbose_name = 'Participant'
 		verbose_name_plural = 'Participants'
-		ordering = ['-created_at']
+
 
 class ParticipantAnswer(models.Model):
 	game_participant = models.ForeignKey(GameParticipant, on_delete=models.CASCADE)
