@@ -23,7 +23,7 @@ class Question(models.Model):
 		('slider', 'Slider'),
 		('type_answer', 'Type answer'),
 		('pin_answer', 'Pin answer'),
-		('Puzzle', 'Puzzle'),
+		('puzzle', 'Puzzle'),
 	)
 	ANSWER_OPTIONS = (
 		('single_select', 'Single select'),
