@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.db.models.signals import post_save
 from users.models import User
 
 
@@ -43,6 +43,20 @@ class Question(models.Model):
 		ordering = ['-created_at']
 
 
+class QuestionFile(models.Model):
+	game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
+	file = models.FileField(upload_to='questions/')
+	created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		verbose_name = 'Question File'
+		verbose_name_plural = 'Question Files'
+
+	def __str__(self):
+		return f"Questions for {self.game_id}"
+
+
 class Answer(models.Model):
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)
 	text = models.TextField()
@@ -54,7 +68,6 @@ class Answer(models.Model):
 		verbose_name = 'Answer'
 		verbose_name_plural = 'Answers'
 		ordering = ['-created_at']
-
 
 
 
